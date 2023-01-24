@@ -76,20 +76,30 @@ function handleSlider() {
   }
   if (document.getElementById("tree").style.display === "flex") {
     console.log("do something");
-    var sliderS = document.getElementById("treeRange");
+    var sliderDepth = document.getElementById("treeRange");
     var sliderA = document.getElementById("treeAngleA");
     var sliderB = document.getElementById("treeAngleB");
+    var sliderSize = document.getElementById("treeSize");
     fractalCanopy(
-      Math.round(sliderS.value),
       Math.round(sliderA.value),
-      Math.round(sliderB.value)
+      Math.round(sliderB.value),
+      Math.round(sliderSize.value),
+      Math.round(sliderDepth.value)
     );
     var depthS = document.getElementById("depthTree");
-    depthS.innerHTML = "Depth: " + Math.round(depthS.value);
+    depthS.innerHTML = "Depth: " + Math.round(sliderDepth.value);
     var depthA = document.getElementById("angleATree");
-    depthA.innerHTML = "Angle Left: " + Math.round(depthA.value);
+    depthA.innerHTML = "Angle Left: " + Math.round(sliderA.value);
     var depthB = document.getElementById("angleBTree");
-    depthB.innerHTML = "Angle Right: " + Math.round(depthB.value);
+    depthB.innerHTML = "Angle Right: " + Math.round(sliderB.value);
+    var depthSize = document.getElementById("sizeOfTree");
+    depthSize.innerHTML = "Size: " + Math.round(sliderSize.value);
+  }
+  if (document.getElementById("koch").style.display === "flex") {
+    var slider = document.getElementById("kochRange");
+    kochSnowflake(Math.round(slider.value));
+    var depth = document.getElementById("depthKoch");
+    depth.innerHTML = "Depth: " + Math.round(slider.value);
   }
 }
 
@@ -157,13 +167,17 @@ function sierpinskiCarpet(depth) {
   sierpinskiCarpetAux(50, 30, 190, depth);
 }
 
-function fractalCanopy(angleA, angleB, size) {
+function fractalCanopy(angleA, angleB, size, depth) {
   var canvas = document.getElementById("treeCanvas");
   canvas.width = window.innerHeight * 0.5;
   canvas.height = window.innerHeight * 0.5;
   var ctx = canvas.getContext("2d");
 
-  function drawBranch(x1, y1, angle, size) {
+  function drawBranch(x1, y1, angle, size, depth) {
+    if (depth === 0) {
+      return;
+    }
+
     var x2 = x1 + size * Math.cos(angle);
     var y2 = y1 - size * Math.sin(angle);
     ctx.beginPath();
@@ -171,11 +185,40 @@ function fractalCanopy(angleA, angleB, size) {
     ctx.lineTo(x2, y2);
     ctx.stroke();
     if (size > 2) {
-      drawBranch(x2, y2, angle + angleA, size * 0.67);
-      drawBranch(x2, y2, angle + angleB, size * 0.67);
+      drawBranch(x2, y2, angle + angleA, size * 0.67, depth - 1);
+      drawBranch(x2, y2, angle + angleB, size * 0.67, depth - 1);
     }
   }
 
   ctx.translate(135, 30);
-  drawBranch(0, 0, -Math.PI / 2, size);
+  drawBranch(0, 0, -Math.PI / 2, size, depth);
+}
+
+function kochSnowflake(depth, size = 100) {
+  var canvas = document.getElementById("kochCanvas");
+  canvas.width = window.innerHeight * 0.5;
+  canvas.height = window.innerHeight * 0.5;
+  var ctx = canvas.getContext("2d");
+  ctx.translate(143, 143);
+  if (depth == 0) {
+    drawLine(size);
+  } else {
+    kochSnowflake(depth - 1, size / 3);
+    ctx.rotate(Math.PI / 3);
+    kochSnowflake(depth - 1, size / 3);
+    ctx.rotate((-2 * Math.PI) / 3);
+    kochSnowflake(depth - 1, size / 3);
+    ctx.rotate(Math.PI / 3);
+    kochSnowflake(depth - 1, size / 3);
+  }
+
+  function drawLine(size) {
+    ctx.beginPath();
+    ctx.moveTo(size, 0);
+    ctx.lineTo(size / 2, (size * Math.sqrt(3)) / 2);
+    ctx.lineTo(-size / 2, (size * Math.sqrt(3)) / 2);
+    ctx.lineTo(-size, 0);
+    ctx.lineTo(size, 0);
+    ctx.stroke();
+  }
 }

@@ -5,6 +5,9 @@
   font-style: normal;
 }
 
+h5 {
+  margin: auto 5rem;
+}
 button {
   border-radius: 2px;
   background-color: #3e80f1; /* Green */
