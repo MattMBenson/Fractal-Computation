@@ -28,7 +28,7 @@ function showCarpet() {
   displayDescription = document.getElementById("displayDescription");
   displayTitle.innerHTML = "Sierpiński Carpet";
   displayDescription.innerHTML =
-    "is a fractal attractive fixed set with the overall shape of an square, recursively cut into 9 congruent subsquares.";
+    "is a fractal attractive fixed set with the overall shape of a square, recursively cut into 9 congruent subsquares.";
 }
 function showTree() {
   hideAll();
@@ -62,10 +62,18 @@ function showMandelbrot() {
 }
 
 function handleSlider() {
-  var slider = document.getElementById("triangleRange");
-  sierpinski(Math.round(slider.value));
-  var depth = document.getElementById("depth");
-  depth.innerHTML = "Depth: " + Math.round(slider.value);
+  if (document.getElementById("triangles").style.display === "flex") {
+    var slider = document.getElementById("triangleRange");
+    sierpinski(Math.round(slider.value));
+    var depth = document.getElementById("depthTriangle");
+    depth.innerHTML = "Depth: " + Math.round(slider.value);
+  }
+  if (document.getElementById("carpet").style.display === "flex") {
+    var slider = document.getElementById("carpetRange");
+    sierpinskiCarpet(Math.round(slider.value));
+    var depth = document.getElementById("depthCarpet");
+    depth.innerHTML = "Depth: " + Math.round(slider.value);
+  }
 }
 
 function sierpinski(depth) {
@@ -96,4 +104,38 @@ function sierpinski(depth) {
     p2 = [240, 30],
     p3 = [140, 220];
   drawTriangle(p1, p2, p3, depth);
+}
+
+function sierpinskiCarpet(depth) {
+  var canvas = document.getElementById("carpetCanvas");
+  canvas.width = window.innerHeight * 0.5;
+  canvas.height = window.innerHeight * 0.5;
+  var ctx = canvas.getContext("2d");
+
+  function sierpinskiCarpetAux(x, y, size, depth) {
+    if (depth === 0) {
+      ctx.fillRect(x, y, size, size);
+    } else {
+      var newSize = size / 3;
+      for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+          if (i === 1 && j === 1) {
+            ctx.fillStyle = "white";
+            ctx.fillRect(x + i * newSize, y + j * newSize, newSize, newSize);
+            ctx.fillStyle = "black";
+          } else {
+            sierpinskiCarpetAux(
+              x + i * newSize,
+              y + j * newSize,
+              newSize,
+              depth - 1
+            );
+          }
+        }
+      }
+    }
+  }
+
+  ctx.fillStyle = "black";
+  sierpinskiCarpetAux(50, 30, 190, depth);
 }
