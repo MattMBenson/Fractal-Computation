@@ -1,0 +1,15 @@
+{
+  "name": "fractals-in-mathematics",
+  "version": "1.0.0",
+  "description": "Visualization fractals found in math computation",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --enable-node-integration"
+  },
+  "author": "Matthew Benson",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^7.8.2",
+    "electron": "^22.0.3"
+  }
+}
