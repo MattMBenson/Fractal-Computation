@@ -37,8 +37,8 @@ function showTree() {
   displayTitle = document.getElementById("displayTitle");
   displayDescription = document.getElementById("displayDescription");
   displayTitle.innerHTML = "Canopy Tree";
-  displayDescription.innerHTML =
-    "is created by splitting a line segment into two smaller segments at the end (symmetric binary tree), and then splitting the two smaller segments as well, and so on, infinitely.";
+  //displayDescription.innerHTML =
+  //"is created by splitting a line segment into two smaller segments at the end (symmetric binary tree), and then splitting the two smaller segments as well, and so on, infinitely.";
 }
 function showKoch() {
   hideAll();
@@ -73,6 +73,23 @@ function handleSlider() {
     sierpinskiCarpet(Math.round(slider.value));
     var depth = document.getElementById("depthCarpet");
     depth.innerHTML = "Depth: " + Math.round(slider.value);
+  }
+  if (document.getElementById("tree").style.display === "flex") {
+    console.log("do something");
+    var sliderS = document.getElementById("treeRange");
+    var sliderA = document.getElementById("treeAngleA");
+    var sliderB = document.getElementById("treeAngleB");
+    fractalCanopy(
+      Math.round(sliderS.value),
+      Math.round(sliderA.value),
+      Math.round(sliderB.value)
+    );
+    var depthS = document.getElementById("depthTree");
+    depthS.innerHTML = "Depth: " + Math.round(depthS.value);
+    var depthA = document.getElementById("angleATree");
+    depthA.innerHTML = "Angle Left: " + Math.round(depthA.value);
+    var depthB = document.getElementById("angleBTree");
+    depthB.innerHTML = "Angle Right: " + Math.round(depthB.value);
   }
 }
 
@@ -138,4 +155,27 @@ function sierpinskiCarpet(depth) {
 
   ctx.fillStyle = "black";
   sierpinskiCarpetAux(50, 30, 190, depth);
+}
+
+function fractalCanopy(angleA, angleB, size) {
+  var canvas = document.getElementById("treeCanvas");
+  canvas.width = window.innerHeight * 0.5;
+  canvas.height = window.innerHeight * 0.5;
+  var ctx = canvas.getContext("2d");
+
+  function drawBranch(x1, y1, angle, size) {
+    var x2 = x1 + size * Math.cos(angle);
+    var y2 = y1 - size * Math.sin(angle);
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    if (size > 2) {
+      drawBranch(x2, y2, angle + angleA, size * 0.67);
+      drawBranch(x2, y2, angle + angleB, size * 0.67);
+    }
+  }
+
+  ctx.translate(135, 30);
+  drawBranch(0, 0, -Math.PI / 2, size);
 }

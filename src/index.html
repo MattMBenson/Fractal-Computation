@@ -56,17 +56,43 @@
           <canvas id="carpetCanvas" class="canvas"></canvas>
         </div>
         <div id="tree">
-          <h5 id="depthTree">Depth: -1</h5>
-          <input
-            type="range"
-            min="1"
-            max="7"
-            value="0"
-            class="slider"
-            id="treeRange"
-            step="0.1"
-            oninput="handleSlider()"
-          />
+          <div class="labelContainer">
+            <h5 id="depthTree">Depth: -1</h5>
+            <h5 id="angleATree">Angle Left: 90</h5>
+            <h5 id="angleBTree">Angle Right: 90</h5>
+          </div>
+          <div class="treeSliderContainer">
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="0"
+              class="slider"
+              id="treeRange"
+              step="0.1"
+              oninput="handleSlider()"
+            />
+            <input
+              type="range"
+              min="1"
+              max="180"
+              value="0"
+              class="slider"
+              id="treeAngleA"
+              step="1"
+              oninput="handleSlider()"
+            />
+            <input
+              type="range"
+              min="1"
+              max="180"
+              value="0"
+              class="slider"
+              id="treeAngleB"
+              step="1"
+              oninput="handleSlider()"
+            />
+          </div>
           <canvas id="treeCanvas" class="canvas"></canvas>
         </div>
         <div id="koch">

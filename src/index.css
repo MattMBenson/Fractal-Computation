@@ -34,7 +34,6 @@ body {
 .visual-container {
   height: 50vh;
   width: 70vw;
-  margin-top: 1rem;
 }
 
 .main-container {
@@ -73,10 +72,26 @@ body {
   cursor: pointer;
 }
 
+.treeSliderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 #depth {
   margin: 0;
   font-family: monospace;
   font-size: 14px;
+}
+
+.depthTree {
+  margin: 0 !important;
 }
 
 #displayTitle {
