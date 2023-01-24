@@ -16,7 +16,7 @@ function showTriangles() {
   triangeRender.style.display = "flex";
   displayTitle = document.getElementById("displayTitle");
   displayDescription = document.getElementById("displayDescription");
-  displayTitle.innerHTML = "Sierpinski Triangle \u25bd";
+  displayTitle.innerHTML = "Sierpiński Triangle \u25bd";
   displayDescription.innerHTML =
     "is a fractal attractive fixed set with the overall shape of an equilateral triangle, subdivided recursively into smaller equilateral triangles.";
 }
@@ -24,28 +24,48 @@ function showCarpet() {
   hideAll();
   carpetRender = document.getElementById("carpet");
   carpetRender.style.display = "flex";
+  displayTitle = document.getElementById("displayTitle");
+  displayDescription = document.getElementById("displayDescription");
+  displayTitle.innerHTML = "Sierpiński Carpet";
+  displayDescription.innerHTML =
+    "is a fractal attractive fixed set with the overall shape of an square, recursively cut into 9 congruent subsquares.";
 }
 function showTree() {
   hideAll();
   treeRender = document.getElementById("tree");
   treeRender.style.display = "flex";
+  displayTitle = document.getElementById("displayTitle");
+  displayDescription = document.getElementById("displayDescription");
+  displayTitle.innerHTML = "Canopy Tree";
+  displayDescription.innerHTML =
+    "is created by splitting a line segment into two smaller segments at the end (symmetric binary tree), and then splitting the two smaller segments as well, and so on, infinitely.";
 }
 function showKoch() {
   hideAll();
   kochRender = document.getElementById("koch");
   kochRender.style.display = "flex";
+  displayTitle = document.getElementById("displayTitle");
+  displayDescription = document.getElementById("displayDescription");
+  displayTitle.innerHTML = "Koch Snowflake";
+  displayDescription.innerHTML =
+    "is an equilateral triangle, and each successive stage is formed by adding outward bends to each side of the previous stage, making smaller equilateral triangles.";
 }
 function showMandelbrot() {
   hideAll();
   mandelbrotRender = document.getElementById("mandelbrot");
   mandelbrotRender.style.display = "flex";
+  displayTitle = document.getElementById("displayTitle");
+  displayDescription = document.getElementById("displayDescription");
+  displayTitle.innerHTML = "Mandelbrot Set";
+  displayDescription.innerHTML =
+    "exhibits an elaborate and infinitely complicated boundary that reveals progressively ever-finer recursive detail at increasing magnifications";
 }
 
 function handleSlider() {
-  var slider = document.getElementById("myRange");
-  sierpinski(slider.value);
+  var slider = document.getElementById("triangleRange");
+  sierpinski(Math.round(slider.value));
   var depth = document.getElementById("depth");
-  depth.innerHTML = "Depth: " + slider.value;
+  depth.innerHTML = "Depth: " + Math.round(slider.value);
 }
 
 function sierpinski(depth) {
