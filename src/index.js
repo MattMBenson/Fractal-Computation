@@ -14,6 +14,11 @@ function showTriangles() {
   hideAll();
   triangeRender = document.getElementById("triangles");
   triangeRender.style.display = "flex";
+  displayTitle = document.getElementById("displayTitle");
+  displayDescription = document.getElementById("displayDescription");
+  displayTitle.innerHTML = "Sierpinski Triangle \u25bd";
+  displayDescription.innerHTML =
+    "is a fractal attractive fixed set with the overall shape of an equilateral triangle, subdivided recursively into smaller equilateral triangles.";
 }
 function showCarpet() {
   hideAll();
@@ -38,8 +43,9 @@ function showMandelbrot() {
 
 function handleSlider() {
   var slider = document.getElementById("myRange");
-  slider.innerHTML = slider.value;
   sierpinski(slider.value);
+  var depth = document.getElementById("depth");
+  depth.innerHTML = "Depth: " + slider.value;
 }
 
 function sierpinski(depth) {

@@ -1,18 +1,47 @@
+@font-face {
+  font-family: "MaisonNeue";
+  src: url("./fonts/MaisonNeueMonoRegular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+button {
+  border-radius: 2px;
+  background-color: #3e80f1; /* Green */
+  border: none;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transform: scale(1);
+  transition: transform 0.25s ease;
+}
+
+button:hover {
+  background-color: #75a3f2; /* Green */
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 body {
   overflow: hidden;
+  font-family: "MaisonNeue";
 }
 .visual-container {
   height: 50vh;
   width: 70vw;
-  margin-top: 10vh;
-  border: 1px solid black;
+  margin-top: 1rem;
 }
 
 .main-container {
   height: auto;
   width: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -46,4 +75,15 @@ body {
 
 #depth {
   margin: 0;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+#displayTitle {
+  margin: 1rem 0;
+}
+#displayDescription {
+  font-size: 10px;
+  text-align: center;
+  width: 50%;
 }

@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="main-container">
-      <h1>Fractals found in via Mathematical Computation</h1>
+      <h2>ART FOUND IN MATH VIA FRACTAL COMPUTATION</h2>
       <div class="buttons">
         <button class="trianglesBtn" onclick="showTriangles()">
           Sierpinski Triangle
@@ -23,9 +23,12 @@
           Mandelbrot Set
         </button>
       </div>
+      <h4 id="displayTitle"></h4>
+      <p id="displayDescription"></p>
+
       <div class="visual-container">
         <div id="triangles">
-          <h5 id="depth"></h5>
+          <h5 id="depth">Depth: -1</h5>
           <input
             type="range"
             min="1"
@@ -33,9 +36,9 @@
             value="0"
             class="slider"
             id="myRange"
-            onchange="handleSlider()"
+            oninput="handleSlider()"
           />
-          <canvas id="triangleCanvas"></canvas>
+          <canvas id="triangleCanvas" class="canvas"></canvas>
         </div>
         <div id="carpet">Carpet</div>
         <div id="tree">Tree</div>
