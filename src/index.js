@@ -38,7 +38,7 @@ function showTree() {
   displayDescription = document.getElementById("displayDescription");
   displayTitle.innerHTML = "Canopy Tree";
   displayDescription.innerHTML =
-  "is created by splitting a line segment into two smaller segments at the end, and then splitting the two smaller segments as well, and so on, infinitely.";
+    "is created by splitting a line segment into two smaller segments at the end, and then splitting the two smaller segments as well, and so on, infinitely.";
 }
 function showKoch() {
   hideAll();
@@ -99,6 +99,12 @@ function handleSlider() {
     var slider = document.getElementById("kochRange");
     kochSnowflake(Math.round(slider.value));
     var depth = document.getElementById("depthKoch");
+    depth.innerHTML = "Depth: " + Math.round(slider.value);
+  }
+  if (document.getElementById("mandelbrot").style.display === "flex") {
+    var slider = document.getElementById("mandelbrotRange");
+    createMandelbrotFractal(Math.round(slider.value));
+    var depth = document.getElementById("depthMandelbrot");
     depth.innerHTML = "Depth: " + Math.round(slider.value);
     console.log(Math.round(slider.value));
   }
@@ -239,4 +245,81 @@ function kochSnowflake(depth) {
   drawFractal(x1, y1, x2, y2, depth);
   drawFractal(x2, y2, x3, y3, depth);
   drawFractal(x3, y3, x1, y1, depth);
+}
+function createMandelbrotFractal(depth) {
+  var mandelbrotCanvas = document.getElementById("mandelbrotCanvas");
+  const ctx = mandelbrotCanvas.getContext("2d");
+  const width = mandelbrotCanvas.width;
+  const height = mandelbrotCanvas.height;
+  const imageData = ctx.createImageData(width, height);
+  const data = imageData.data;
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      const cRe = ((x - width / 2) * 4) / width;
+      const cIm = ((y - height / 2) * 4) / width;
+      let zRe = cRe,
+        zIm = cIm;
+      let i;
+      for (i = 0; i < depth; i++) {
+        const zRe2 = zRe * zRe;
+        const zIm2 = zIm * zIm;
+        if (zRe2 + zIm2 > 4) {
+          break;
+        }
+        zIm = 2 * zRe * zIm + cIm;
+        zRe = zRe2 - zIm2 + cRe;
+      }
+
+      const color = i < depth ? getPastelColor(i, depth) : [0, 0, 0, 255];
+      const pixel = (x + y * width) * 4;
+      data[pixel] = color[0];
+      data[pixel + 1] = color[1];
+      data[pixel + 2] = color[2];
+      data[pixel + 3] = color[3];
+    }
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+}
+
+function getPastelColor(i, depth) {
+  const color = hsvToRgb((i / depth) * 360, 0.5, 0.95);
+  return [color.r, color.g, color.b, 255];
+}
+
+function hsvToRgb(h, s, v) {
+  let r, g, b;
+  const i = Math.floor(h * 6);
+  const f = h * 6 - i;
+  const p = v * (1 - s);
+  const q = v * (1 - f * s);
+  const t = v * (1 - (1 - f) * s);
+
+  switch (i % 6) {
+    case 0:
+      (r = v), (g = t), (b = p);
+      break;
+    case 1:
+      (r = q), (g = v), (b = p);
+      break;
+    case 2:
+      (r = p), (g = v), (b = t);
+      break;
+    case 3:
+      (r = p), (g = q), (b = v);
+      break;
+    case 4:
+      (r = t), (g = p), (b = v);
+      break;
+    case 5:
+      (r = v), (g = p), (b = q);
+      break;
+  }
+
+  return {
+    r: Math.round(r * 255),
+    g: Math.round(g * 255),
+    b: Math.round(b * 255),
+  };
 }

@@ -34,6 +34,10 @@ body {
   overflow: hidden;
   font-family: "MaisonNeue";
 }
+
+#mandelbrotCanvas {
+  margin-top: 1rem;
+}
 .visual-container {
   height: 50vh;
   width: 70vw;
