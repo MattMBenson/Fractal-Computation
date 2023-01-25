@@ -37,8 +37,8 @@ function showTree() {
   displayTitle = document.getElementById("displayTitle");
   displayDescription = document.getElementById("displayDescription");
   displayTitle.innerHTML = "Canopy Tree";
-  //displayDescription.innerHTML =
-  //"is created by splitting a line segment into two smaller segments at the end (symmetric binary tree), and then splitting the two smaller segments as well, and so on, infinitely.";
+  displayDescription.innerHTML =
+  "is created by splitting a line segment into two smaller segments at the end, and then splitting the two smaller segments as well, and so on, infinitely.";
 }
 function showKoch() {
   hideAll();
@@ -48,7 +48,7 @@ function showKoch() {
   displayDescription = document.getElementById("displayDescription");
   displayTitle.innerHTML = "Koch Snowflake";
   displayDescription.innerHTML =
-    "is an equilateral triangle, and each successive stage is formed by adding outward bends to each side of the previous stage, making smaller equilateral triangles.";
+    "each successive stage is formed by adding outward bends to each side of the previous stage, making smaller equilateral triangles.";
 }
 function showMandelbrot() {
   hideAll();
@@ -100,6 +100,7 @@ function handleSlider() {
     kochSnowflake(Math.round(slider.value));
     var depth = document.getElementById("depthKoch");
     depth.innerHTML = "Depth: " + Math.round(slider.value);
+    console.log(Math.round(slider.value));
   }
 }
 
@@ -194,31 +195,48 @@ function fractalCanopy(angleA, angleB, size, depth) {
   drawBranch(0, 0, -Math.PI / 2, size, depth);
 }
 
-function kochSnowflake(depth, size = 100) {
+function kochSnowflake(depth) {
+  // Get canvas element
   var canvas = document.getElementById("kochCanvas");
   canvas.width = window.innerHeight * 0.5;
   canvas.height = window.innerHeight * 0.5;
   var ctx = canvas.getContext("2d");
-  ctx.translate(143, 143);
-  if (depth == 0) {
-    drawLine(size);
-  } else {
-    kochSnowflake(depth - 1, size / 3);
-    ctx.rotate(Math.PI / 3);
-    kochSnowflake(depth - 1, size / 3);
-    ctx.rotate((-2 * Math.PI) / 3);
-    kochSnowflake(depth - 1, size / 3);
-    ctx.rotate(Math.PI / 3);
-    kochSnowflake(depth - 1, size / 3);
+  var width = canvas.width;
+  var height = canvas.height;
+  var x1 = width / 2;
+  var y1 = height / 2 - height / 2.5 - 20;
+  var x2 = width / 2 + width / 2.5;
+  var y2 = height / 2 + height / 2.5;
+  var x3 = width / 2 - width / 2.5;
+  var y3 = height / 2 + height / 2.5;
+
+  // Clear canvas before drawing
+  ctx.clearRect(0, 0, width, height);
+
+  // Recursive function to draw the fractal
+  function drawFractal(x1, y1, x2, y2, depth) {
+    if (depth === 0) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    } else {
+      var x3 = x1 + (x2 - x1) / 3;
+      var y3 = y1 + (y2 - y1) / 3;
+      var x4 = x1 + ((x2 - x1) * 2) / 3;
+      var y4 = y1 + ((y2 - y1) * 2) / 3;
+      var x5 = x1 + (x2 - x1) / 2 + ((y2 - y1) * Math.sqrt(3)) / 6;
+      var y5 = y1 + (y2 - y1) / 2 - ((x2 - x1) * Math.sqrt(3)) / 6;
+
+      drawFractal(x1, y1, x3, y3, depth - 1);
+      drawFractal(x3, y3, x5, y5, depth - 1);
+      drawFractal(x5, y5, x4, y4, depth - 1);
+      drawFractal(x4, y4, x2, y2, depth - 1);
+    }
   }
 
-  function drawLine(size) {
-    ctx.beginPath();
-    ctx.moveTo(size, 0);
-    ctx.lineTo(size / 2, (size * Math.sqrt(3)) / 2);
-    ctx.lineTo(-size / 2, (size * Math.sqrt(3)) / 2);
-    ctx.lineTo(-size, 0);
-    ctx.lineTo(size, 0);
-    ctx.stroke();
-  }
+  // Draw fractal on all three sides of the triangle
+  drawFractal(x1, y1, x2, y2, depth);
+  drawFractal(x2, y2, x3, y3, depth);
+  drawFractal(x3, y3, x1, y1, depth);
 }
