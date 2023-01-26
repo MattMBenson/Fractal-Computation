@@ -1,28 +1,14 @@
 <p align="center"><img src="https://socialify.git.ci/MattMBenson/Fractal-Computation/image?description=1&amp;descriptionEditable=Fractals%20found%20via%20Mathematical%20Computation&amp;forks=1&amp;language=1&amp;name=1&amp;owner=1&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
 
-<p id="description">Using Electron and Node.js the application allows you to generate and view different types of fractals such as Mandelbrot and Julia sets on a canvas. With an easy-to-use interface anyone can experiment and discover the beauty of fractals"</p>
-
-<h2>Project Screenshots:</h2>
-
-<img src="https://i.imgur.com/iLkX2xw.gifv" alt="gif" width="268 height="268"
-
-<img src="https://matthewbenson.ca/images/project1/1.png" alt="project-screenshot" width="268" height="268/">
-
-<img src="https://matthewbenson.ca/images/project1/2.png" alt="project-screenshot" width="268" height="268/">
-
-<img src="https://matthewbenson.ca/images/project1/3.png" alt="project-screenshot" width="268" height="268/">
-
-<img src="https://matthewbenson.ca/images/project1/4.png" alt="project-screenshot" width="268" height="268/">
-
-<img src="https://matthewbenson.ca/images/project1/5.png" alt="project-screenshot" width="268" height="268/">
-
-<img src="https://matthewbenson.ca/images/project1/6.png" alt="project-screenshot" width="268" height="268/">
-
-<img src="https://matthewbenson.ca/images/project1/7.png" alt="project-screenshot" width="268" height="100/">
-
-<img src="https://matthewbenson.ca/images/project1/8.png" alt="project-screenshot" width="268" height="100/">
-
+<p id="description">Using Electron and Node.js the application allows you to generate and view different types of fractals such as Mandelbrot and Julia sets on a canvas. With an easy-to-use interface anyone can experiment and discover the beauty of fractals"
   
+  Currently includes Sierpinski Triangle and Carpet, Koch Snowflake, Fractal Canopy as well as Mandelbrot. 
+
+</p>
+
+<h2>Sample Designs:</h2>
+                                                                             
+<img src="https://i.imgur.com/iLkX2xw.gif" alt="project-screenshot" width="268" height="268/">
   
 <h2>🧐 Features</h2>
 
