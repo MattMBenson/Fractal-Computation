@@ -110,6 +110,44 @@ function handleSlider() {
   }
 }
 
+function downloadImage() {
+  if (document.getElementById("triangles").style.display === "flex") {
+    var canvas = document.getElementById("triangleCanvas");
+    var link = document.createElement("a");
+    link.download = "sierpinski-triangle.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+  if (document.getElementById("carpet").style.display === "flex") {
+    var canvas = document.getElementById("carpetCanvas");
+    var link = document.createElement("a");
+    link.download = "sierpinski-carpet.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+  if (document.getElementById("tree").style.display === "flex") {
+    var canvas = document.getElementById("treeCanvas");
+    var link = document.createElement("a");
+    link.download = "canopy-tree.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+  if (document.getElementById("koch").style.display === "flex") {
+    var canvas = document.getElementById("kochCanvas");
+    var link = document.createElement("a");
+    link.download = "koch-snowflake.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+  if (document.getElementById("mandelbrot").style.display === "flex") {
+    var canvas = document.getElementById("mandelbrotCanvas");
+    var link = document.createElement("a");
+    link.download = "mandelbrot-set.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+}
+
 function sierpinski(depth) {
   var canvas = document.getElementById("triangleCanvas");
   canvas.width = window.innerHeight * 0.5;
@@ -134,10 +172,12 @@ function sierpinski(depth) {
     }
   }
 
-  var p1 = [50, 30],
-    p2 = [240, 30],
-    p3 = [140, 220];
+  var p1 = [50, 50],
+    p2 = [240, 50],
+    p3 = [140, 240];
   drawTriangle(p1, p2, p3, depth);
+  var img = canvas.toDataURL("image/png");
+  console.log(img);
 }
 
 function sierpinskiCarpet(depth) {
@@ -171,7 +211,9 @@ function sierpinskiCarpet(depth) {
   }
 
   ctx.fillStyle = "black";
-  sierpinskiCarpetAux(50, 30, 190, depth);
+  sierpinskiCarpetAux(50, 50, 190, depth);
+  var img = canvas.toDataURL("image/png");
+  console.log(img);
 }
 
 function fractalCanopy(angleA, angleB, size, depth) {
@@ -198,7 +240,9 @@ function fractalCanopy(angleA, angleB, size, depth) {
   }
 
   ctx.translate(135, 30);
-  drawBranch(0, 0, -Math.PI / 2, size, depth);
+  drawBranch(10, 5, -Math.PI / 2, size, depth);
+  var img = canvas.toDataURL("image/png");
+  console.log(img);
 }
 
 function kochSnowflake(depth) {
@@ -207,13 +251,13 @@ function kochSnowflake(depth) {
   canvas.width = window.innerHeight * 0.5;
   canvas.height = window.innerHeight * 0.5;
   var ctx = canvas.getContext("2d");
-  var width = canvas.width;
-  var height = canvas.height;
-  var x1 = width / 2;
-  var y1 = height / 2 - height / 2.5 - 20;
-  var x2 = width / 2 + width / 2.5;
+  var width = canvas.width * 0.85;
+  var height = canvas.height * 0.85;
+  var x1 = width / 2 + 20;
+  var y1 = height / 2 - height / 2.5;
+  var x2 = width / 2 + width / 2.5 + 20;
   var y2 = height / 2 + height / 2.5;
-  var x3 = width / 2 - width / 2.5;
+  var x3 = width / 2 - width / 2.5 + 20;
   var y3 = height / 2 + height / 2.5;
 
   // Clear canvas before drawing
@@ -245,12 +289,15 @@ function kochSnowflake(depth) {
   drawFractal(x1, y1, x2, y2, depth);
   drawFractal(x2, y2, x3, y3, depth);
   drawFractal(x3, y3, x1, y1, depth);
+  var img = canvas.toDataURL("image/png");
+  console.log(img);
 }
+
 function createMandelbrotFractal(depth) {
-  var mandelbrotCanvas = document.getElementById("mandelbrotCanvas");
-  const ctx = mandelbrotCanvas.getContext("2d");
-  const width = mandelbrotCanvas.width;
-  const height = mandelbrotCanvas.height;
+  var canvas = document.getElementById("mandelbrotCanvas");
+  const ctx = canvas.getContext("2d");
+  const width = canvas.width;
+  const height = canvas.height;
   const imageData = ctx.createImageData(width, height);
   const data = imageData.data;
 
@@ -281,6 +328,8 @@ function createMandelbrotFractal(depth) {
   }
 
   ctx.putImageData(imageData, 0, 0);
+  var img = canvas.toDataURL("image/png");
+  console.log(img);
 }
 
 function getPastelColor(i, depth) {

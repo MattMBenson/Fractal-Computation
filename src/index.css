@@ -20,6 +20,17 @@ button {
   transform: scale(1);
   transition: transform 0.25s ease;
 }
+#download {
+  transform: scale(1.5);
+  transition: transform 0.25s ease;
+  margin-left: 1rem;
+}
+
+#download:hover {
+  transform: scale(2);
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
 
 button:hover {
   background-color: #75a3f2; /* Green */
