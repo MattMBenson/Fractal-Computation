@@ -6,9 +6,9 @@
 
 </p>
 
-<h2>Sample Designs:</h2>
+<h2 >Sample Designs:</h2>
                                                                              
-<img src="https://i.imgur.com/iLkX2xw.gif" alt="project-screenshot" width="268" height="268/">
+<p align="center" ><img src="https://i.imgur.com/iLkX2xw.gif" alt="project-screenshot" width="268" height="268/"> </p>
   
 <h2>🧐 Features</h2>
 
